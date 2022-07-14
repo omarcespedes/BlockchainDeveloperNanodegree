@@ -13,6 +13,13 @@ This Starter Code has already implemented the functionalities you implemented in
 - Node v12.22.9
 - Rinkeby Token Url: https://rinkeby.etherscan.io/address/0x40f1cf30c2471de3c7b9144e20ea446553d99698
 
+supporting resources:
+
+- https://ethereum.stackexchange.com/questions/13021/how-can-you-figure-out-if-a-certain-key-exists-in-a-mapping-struct-defined-insi
+
+- https://stackoverflow.com/questions/61032941/error-typeerror-err-invalid-repl-input-listeners-for-uncaughtexception-can
+- 
+
 
 
 ### Dependencies
