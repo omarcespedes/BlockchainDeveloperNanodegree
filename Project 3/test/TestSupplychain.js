@@ -122,6 +122,7 @@ contract('SupplyChain', function(accounts) {
     // 5th Test
     it("Testing smart contract function buyItem() that allows a distributor to buy coffee", async() => {
         const supplyChain = await SupplyChain.deployed()
+        await supplyChain.addDistributor(distributorID, { from: ownerID });
         
         // Mark an item as Sold by calling function buyItem()
         const event = await supplyChain.buyItem(upc, {

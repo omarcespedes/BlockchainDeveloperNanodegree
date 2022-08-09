@@ -157,6 +157,7 @@ contract SupplyChain is
 
   // Define a function 'harvestItem' that allows a farmer to mark an item 'Harvested'
   function harvestItem(uint _upc, address payable _originFarmerID, string memory _originFarmName, string memory _originFarmInformation, string memory _originFarmLatitude, string memory _originFarmLongitude, string memory _productNotes) public 
+  onlyFarmer
   {
     // Add the new item as part of Harvest
     items[_upc].sku = sku;
@@ -226,7 +227,7 @@ contract SupplyChain is
     paidEnough(msg.value)
     // Call modifer to send any excess ether back to buyer
     checkValue(_upc)
-    
+    onlyDistributor
     {
     
     // Update the appropriate fields - ownerID, distributorID, itemState
