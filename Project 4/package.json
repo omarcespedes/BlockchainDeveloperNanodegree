@@ -35,7 +35,6 @@
     "start-server-webpack-plugin": "2.2.5",
     "style-loader": "^0.23.1",
     "superstatic": "6.0.3",
-    "truffle": "5.0.2",
     "@truffle/hdwallet-provider": "^1.4.3",
     "web3": "1.5.1",
     "webpack": "^4.6.0",
