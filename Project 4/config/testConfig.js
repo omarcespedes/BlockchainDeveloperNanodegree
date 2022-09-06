@@ -29,7 +29,7 @@ var Config = async function(accounts) {
     
     return {
         owner: owner,
-        firstAirline: firstAirline,
+        firstAirline: owner,
         weiMultiple: (new BigNumber(10)).pow(18),
         testAddresses: testAddresses,
         flightSuretyData: flightSuretyData,

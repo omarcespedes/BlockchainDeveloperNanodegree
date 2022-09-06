@@ -1,13 +1,14 @@
 
 var Test = require('../config/testConfig.js');
 var BigNumber = require('bignumber.js');
+const Web3 = require('web3');
+const web3 = new Web3("ws://localhost:8545");
 
 contract('Flight Surety Tests', async (accounts) => {
 
   var config;
   before('setup contract', async () => {
     config = await Test.Config(accounts);
-    await config.flightSuretyData.authorizeCaller(config.flightSuretyApp.address);
   });
 
   /****************************************************************************************/
@@ -19,7 +20,6 @@ contract('Flight Surety Tests', async (accounts) => {
     // Get operating status
     let status = await config.flightSuretyData.isOperational.call();
     assert.equal(status, true, "Incorrect initial operating status value");
-
   });
 
   it(`(multiparty) can block access to setOperatingStatus() for non-Contract Owner account`, async function () {
@@ -78,16 +78,35 @@ contract('Flight Surety Tests', async (accounts) => {
 
     // ACT
     try {
+        await config.flightSuretyApp.fundAirline({from: config.firstAirline, value: web3.utils.toWei('10', 'ether')});
         await config.flightSuretyApp.registerAirline(newAirline, {from: config.firstAirline});
     }
     catch(e) {
 
     }
-    let result = await config.flightSuretyData.isAirline.call(newAirline); 
-
+    let result = await config.flightSuretyData.isAirlineValid.call(newAirline);
+    
     // ASSERT
     assert.equal(result, false, "Airline should not be able to register another airline if it hasn't provided funding");
+  });
 
+  it('(airline) can register an Airline using registerAirline() if it is funded', async () => {
+    
+    // ARRANGE
+    let newAirline = accounts[3];
+
+    // ACT
+    try {
+        await config.flightSuretyApp.registerAirline(newAirline, {from: config.firstAirline});
+        await config.flightSuretyApp.fundAirline({from: newAirline, value: web3.utils.toWei('10', 'ether')});
+    }
+    catch(e) {
+        // console.error(e)
+    }
+    let result = await config.flightSuretyData.isAirlineValid.call(newAirline);
+    
+    // ASSERT
+    assert.equal(result, true, "Airline should be able to register another airline if it hasn't provided funding");
   });
  
 
